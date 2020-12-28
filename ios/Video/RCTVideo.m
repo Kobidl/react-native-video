@@ -246,6 +246,35 @@ static int const RCTVideoUnset = -1;
     if (reason.unsignedIntValue == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
       self.onVideoAudioBecomingNoisy(@{@"target": self.reactTag});
     }
+    - [ ] Solution:
+    NSInteger reason = [[[notification userInfo] objectForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    switch (reason) {
+        case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory:
+            NSLog(@"] Audio Route: The route changed because no suitable route is now available for the specified category.");
+            break;
+        case AVAudioSessionRouteChangeReasonWakeFromSleep:
+            NSLog(@"] Audio Route: The route changed when the device woke up from sleep.");
+            break;
+        case AVAudioSessionRouteChangeReasonOverride:
+            NSLog(@"] Audio Route: The output route was overridden by the app.");
+            break;
+        case AVAudioSessionRouteChangeReasonCategoryChange:
+            NSLog(@"] Audio Route: The category of the session object changed.");
+            break;
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+            NSLog(@"] Audio Route: The previous audio output path is no longer available.");
+            break;
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+            NSLog(@"] Audio Route: A preferred new audio output path is now available.");
+            break;
+        case AVAudioSessionRouteChangeReasonUnknown:
+            NSLog(@"] Audio Route: The reason for the change is unknown.");
+            break;
+        default:
+            NSLog(@"] Audio Route: The reason for the change is very unknown.");
+            break;
+
+  }
 }
 
 #pragma mark - Progress
